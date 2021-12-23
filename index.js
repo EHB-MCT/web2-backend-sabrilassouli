@@ -9,6 +9,7 @@ app.get('/', (req, res) => {
   res.send("Het werkt")
 })
 app.use(bodyParser.json());
+app.use(cors());
 
 //mongo config
 const {
@@ -259,8 +260,8 @@ app //GET all user-data from db
 
 
 
-//PUT dailyTotal from db
-.put('/updatedailyTotal/:id', async (req, res) => {
+  //PUT dailyTotal from db
+  .put('/updatedailyTotal/:id', async (req, res) => {
     try {
       //connect db
       await client.connect();
@@ -270,8 +271,8 @@ app //GET all user-data from db
 
       //only look for a dailyTotal with id
       const query = {
-         _id: ObjectId(req.params.id)
-       // date: date(req.params.date)
+        _id: ObjectId(req.params.id)
+        // date: date(req.params.date)
       };
 
       const updateDocument = {
@@ -330,6 +331,8 @@ app //GET all user-data from db
 
   })
 
+
+
   //DELETE meals from db
   .delete('/deleteMeal/:id', async (req, res) => {
     //id is located in the query: req.params.id
@@ -360,6 +363,8 @@ app //GET all user-data from db
       })
     }
   })
+
+
 
 app.listen(port, () => {
   console.log(`REST API is running at http://localhost:${port}`);
