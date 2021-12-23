@@ -119,6 +119,29 @@ app //GET all user-data from db
 
   })
 
+  //GET all meals from db
+  .get('/dailyTotal', async (req, res) => {
+
+    try {
+      //connect db
+      await client.connect();
+
+      //retrieve user data
+      const coll = client.db('course-project').collection('dailyTotal')
+      const dailyTotal = await coll.find({}).toArray();
+
+      //send back the file
+      res.status(200).send(dailyTotal)
+
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        error: "ERROR couldn't get daily-intake",
+        value: error
+      })
+    }
+
+  })
 
 
   //GET all daily-intake:date from db
